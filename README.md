@@ -5,7 +5,6 @@
 ## Links
 
 - GitHub https://github.com/magicdawn/bj-hospital-vis
-- Page https://bj-hospital-vis.netlify.com/#/
 
 ## 数据来源
 
@@ -15,29 +14,74 @@
 
 ## Tech Stack
 
-- vue / vue-router
-- mapbox-gl & vue-mgl
-- vue-ant-design
-- 高德开放平台
+- Svelte 5
+- Vite
+- Mapbox GL JS
+- Biome (lint & format)
+- Bun
+- Cloudflare Pages (部署)
 
-## 背景
+## 开发
 
-- 想换一下医保定点医院, 然后找起来太麻烦.
-- 然后自己 <del>这</del>前两年 刚好干的就是类似的
-- 然后刚好总结一下, 内部用的 vue mapbox-gl wrapper 是之前留下来的, 自认没有这个 vue-mgl 好 😂
-- 然后先写 vue-mgl, 后写这个
+```bash
+# 安装依赖
+bun install
 
-## Interesting part
+# 启动开发服务器
+bun dev
 
-### 故宫
+# 构建
+bun run build
 
-故宫划到了东城区
-![the forbidden city](./img/forbidden-city.png)
+# 代码检查
+bun run lint
 
-### 朝阳区
+# 代码格式化
+bun run format
+```
 
-- 朝阳区是个 MultiPolygon
-- 首都国际机场机场是一个单独的 Polygon
-- 然后只划了一部分,不造为啥...
+## 部署
 
-![capital international airport](./img/capital-international-airport.png)
+使用 Cloudflare Pages 部署：
+
+```bash
+# 构建
+bun run build
+
+# 使用 Wrangler 部署
+bunx wrangler pages deploy dist
+```
+
+或者连接 GitHub 仓库，设置：
+- Build command: `bun run build`
+- Build output directory: `dist`
+
+## 项目结构
+
+```
+src/
+├── main.js                 # 入口文件
+├── App.svelte              # 根组件
+├── lib/
+│   ├── components/         # Svelte 组件
+│   │   ├── Header.svelte
+│   │   ├── Map.svelte
+│   │   ├── Panel.svelte
+│   │   └── FilterForm.svelte
+│   ├── stores/             # Svelte stores
+│   │   ├── hospitals.js
+│   │   ├── districts.js
+│   │   └── filters.js
+│   └── utils/              # 工具函数
+│       ├── geo.js
+│       ├── request.js
+│       └── constants.js
+├── public/
+│   └── data/               # 静态数据文件
+└── styles/
+    └── global.css          # 全局样式
+```
+
+## License
+
+ISC

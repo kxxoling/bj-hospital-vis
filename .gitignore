@@ -1,17 +1,32 @@
-logs
-*.log
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+.wrangler/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
 
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
 npm-debug.log*
-node_modules
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-.nyc_output
-coverage
-coverage.*
-
-dist
-crawler/.env
-
-report.*.json
-# Local Netlify folder
-.netlify
+# Bun
+bun.lockb

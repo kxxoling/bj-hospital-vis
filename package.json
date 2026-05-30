@@ -1,78 +1,25 @@
 {
   "name": "bj-hospital-vis",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "poi src/index.js --serve --port 4100",
-    "build": "poi src/index.js --prod",
-    "test": "mocha"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "biome check src/",
+    "format": "biome format --write src/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@magicdawn/eslint-config": "^0.0.1",
-    "@magicdawn/prettier-config": "^0.0.1",
-    "babel-eslint": "^10.0.3",
-    "babel-plugin-import": "^1.13.0",
-    "babel-plugin-lodash": "^3.3.4",
-    "codecov": "^3.3.0",
-    "comlink-loader": "^1.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.0.1",
-    "html-external-webpack-plugin": "^0.0.2",
-    "husky": "latest",
-    "less": "^3.10.3",
-    "less-loader": "^5.0.0",
-    "lint-staged": "latest",
-    "mocha": "^6.1.4",
-    "nyc": "^14.0.0",
-    "poi": "^12.7.5",
-    "prettier": "latest",
-    "raw-loader": "^4.0.0",
-    "should": "^13.2.3",
-    "vue": "^2.6.10",
-    "vue-loader": "^15.7.2",
-    "vue-template-compiler": "^2.6.10",
-    "worker-loader": "^2.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,less,vue}": [
-      "prettier --write",
-      "git add"
-    ]
+    "@biomejs/biome": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "svelte": "^5.0.0",
+    "vite": "^6.0.0"
   },
   "dependencies": {
-    "@magicdawn/x": "git://github.com/magicdawn/x.git",
-    "@turf/turf": "^5.1.6",
-    "ant-design-vue": "^1.4.10",
-    "cheerio": "^1.0.0-rc.3",
-    "comlink": "^4.2.0",
+    "@turf/turf": "^7.0.0",
     "coordtransform": "^2.1.2",
-    "dotenv": "^8.2.0",
-    "github-markdown-css": "^3.0.1",
-    "lodash": "^4.17.15",
-    "mapbox-gl": "^1.6.0",
-    "moment": "^2.24.0",
-    "ms": "^2.1.2",
-    "next-page-kit": "^0.0.3",
-    "poi": "^12.7.4",
-    "promise.map": "^0.0.2",
-    "promise.retry": "^0.2.0",
-    "sequelize": "^5.21.3",
-    "sqlite3": "^4.1.1",
-    "umi-request": "^1.2.14",
-    "vue": "^2.6.10",
-    "vue-markdown": "^2.2.4",
-    "vue-mgl": "^0.3.0",
-    "vue-router": "^3.1.3",
-    "vuex": "^3.1.2",
-    "yargs": "^15.0.2"
+    "flowbite-svelte": "^0.47.0",
+    "mapbox-gl": "^3.0.0"
   }
 }
