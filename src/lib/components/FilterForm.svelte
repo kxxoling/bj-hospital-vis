@@ -42,24 +42,6 @@ function handleSelect(code: string) {
     searchText.set(item.name)
   }
 }
-
-$effect(() => {
-  const list = $hospitals.list || []
-  const rank = $currentRank
-  const category = $currentCategory
-
-  let filtered = list
-
-  if (rank !== '全部') {
-    filtered = filtered.filter((item) => item.rank === rank)
-  }
-
-  if (category !== '全部') {
-    filtered = filtered.filter((item) => item.category === category)
-  }
-
-  hospitals.update((s) => ({ ...s, filtered }))
-})
 </script>
 
 <form class="my-2.5 rounded-md border border-gray-300 bg-white p-2.5">

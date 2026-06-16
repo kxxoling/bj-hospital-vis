@@ -18,7 +18,6 @@ export type HospitalRow = [
 
 export interface HospitalState {
   list: Hospital[]
-  filtered: Hospital[]
   loading: boolean
 }
 

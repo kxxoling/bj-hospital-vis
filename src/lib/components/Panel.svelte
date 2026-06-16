@@ -1,6 +1,6 @@
 <script lang="ts">
 import { NO_NEED_PRE_SELECT_CODE_MAP } from '../stores/filters'
-import { hospitals } from '../stores/hospitals'
+import { filteredHospitals } from '../stores/hospitals'
 import type { Hospital } from '../types'
 import FilterForm from './FilterForm.svelte'
 
@@ -9,7 +9,7 @@ let _showPanel = $state(true)
 const CATEGORY_SPECIAL = '对外专科'
 const CATEGORY_CHINESE = '对外中医'
 
-let filteredList = $derived<Hospital[]>($hospitals.filtered || [])
+let filteredList = $derived<Hospital[]>($filteredHospitals || [])
 let noNeedPreSelectList = $derived(
   filteredList.filter((item) => NO_NEED_PRE_SELECT_CODE_MAP[item.code]),
 )

@@ -26,6 +26,7 @@ jobs:
         env:
           # gh-pages 项目站点会以 /<repo-name>/ 为 base
           VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
         run: bun run build
 
       - name: Deploy to gh-pages (orphan branch)

@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import { onMount } from 'svelte'
 import { districts } from '../stores/districts'
 import { currentAdcode } from '../stores/filters'
-import { hospitals } from '../stores/hospitals'
+import { filteredHospitals, hospitals } from '../stores/hospitals'
 import type { Hospital } from '../types'
 import { MAP_CENTER, MAP_STYLE, MAP_ZOOM } from '../utils/constants'
 
@@ -121,7 +121,7 @@ function addDistrictLayer() {
 }
 
 function getHospitalGeoJSON(): GeoJSON.FeatureCollection {
-  const list = $hospitals.filtered || []
+  const list = $filteredHospitals || []
   return {
     type: 'FeatureCollection',
     features: list.map((item) => ({
