@@ -16,7 +16,9 @@ function createHospitalStore() {
     load: async () => {
       update((s) => ({ ...s, loading: true }))
       try {
-        const json = await request.get('/data/hospital-with-geo.json')
+        const json = await request.get(
+          `${import.meta.env.BASE_URL}data/hospital-with-geo.json`,
+        )
         const list = json.map((row) => {
           let [code, name, lng, lat, rank, category] = row
           ;[lng, lat] = lnglat([lng, lat])

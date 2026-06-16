@@ -19,7 +19,7 @@
 - Mapbox GL JS
 - Biome (lint & format)
 - Bun
-- Cloudflare Pages (部署)
+- GitHub Pages (部署)
 
 ## 开发
 
@@ -42,19 +42,18 @@ bun run format
 
 ## 部署
 
-使用 Cloudflare Pages 部署：
+通过 GitHub Actions 自动部署到 GitHub Pages（orphan 分支 `gh-pages`）。
 
-```bash
-# 构建
-bun run build
+**触发条件**：推送到 `master` 分支即自动构建并部署。
 
-# 使用 Wrangler 部署
-bunx wrangler pages deploy dist
-```
+工作流（`.github/workflows/deploy.yml`）会：
+1. 安装依赖、构建（base URL 自动设为 `/<repo-name>/`）
+2. 在 `dist/` 中初始化 orphan 分支 `gh-pages` 并 force push
 
-或者连接 GitHub 仓库，设置：
-- Build command: `bun run build`
-- Build output directory: `dist`
+**首次使用需在仓库设置中开启 Pages**：
+Settings → Pages → Source 选择 `gh-pages` 分支 / `(root)`。
+
+部署地址：`https://<owner>.github.io/<repo-name>/`
 
 ## 项目结构
 

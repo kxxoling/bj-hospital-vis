@@ -15,7 +15,9 @@ function createDistrictStore() {
     load: async () => {
       update((s) => ({ ...s, loading: true }))
       try {
-        const arr = await request.get('/data/district.json')
+        const arr = await request.get(
+          `${import.meta.env.BASE_URL}data/district.json`,
+        )
 
         for (const item of arr) {
           const { polyline } = item
