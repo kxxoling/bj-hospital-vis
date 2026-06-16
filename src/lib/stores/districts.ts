@@ -1,9 +1,10 @@
 import { writable } from 'svelte/store'
-import { lnglat } from '../utils/geo.js'
-import { request } from '../utils/request.js'
+import type { District, DistrictState, MultiPolygon } from '../types'
+import { lnglat } from '../utils/geo'
+import { request } from '../utils/request'
 
 function createDistrictStore() {
-  const { subscribe, set, update } = writable({
+  const { subscribe, set, update } = writable<DistrictState>({
     list: [],
     loading: false,
   })
@@ -15,7 +16,7 @@ function createDistrictStore() {
     load: async () => {
       update((s) => ({ ...s, loading: true }))
       try {
-        const arr = await request.get(
+        const arr = await request.get<District[]>(
           `${import.meta.env.BASE_URL}data/district.json`,
         )
 
@@ -23,18 +24,18 @@ function createDistrictStore() {
           const { polyline } = item
           const lines = polyline.split('|')
 
-          const toPolygon = (line) => [
+          const toRing = (line: string): number[][] =>
             line.split(';').map((p) => {
-              let [lng, lat] = p.split(',')
-              ;[lng, lat] = lnglat([lng, lat])
+              const [rawLng, rawLat] = p.split(',')
+              const [lng, lat] = lnglat([rawLng, rawLat])
               return [lng, lat]
-            }),
-          ]
+            })
 
-          item.polygon = {
+          const polygon: MultiPolygon = {
             type: 'MultiPolygon',
-            coordinates: [...lines.map(toPolygon)],
+            coordinates: lines.map((line) => [toRing(line)]),
           }
+          item.polygon = polygon
         }
 
         update((s) => ({ ...s, list: arr }))

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * 地址解析
  * https://lbs.amap.com/api/webservice/guide/api/georegeo#geo

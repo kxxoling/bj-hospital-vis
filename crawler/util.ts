@@ -1,4 +1,4 @@
-exports.getHospitalName = (name) => {
+export const getHospitalName = (name: string): string[] => {
   const sourceChars = ['、', '（', '）']
   const targetChar = ','
 

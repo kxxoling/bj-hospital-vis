@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test'
-import { getHospitalName } from '../../crawler/util.js'
+import { getHospitalName } from '../../crawler/util'
 
 describe('crawler util', () => {
   it('getHospitalName', () => {

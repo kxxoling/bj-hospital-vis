@@ -1,18 +1,20 @@
-<script>
+<script lang="ts">
 import * as turf from '@turf/turf'
 import mapboxgl from 'mapbox-gl'
 import { onMount } from 'svelte'
-import { districts } from '../stores/districts.js'
-import { currentAdcode } from '../stores/filters.js'
-import { hospitals } from '../stores/hospitals.js'
-import { MAP_CENTER, MAP_STYLE, MAP_ZOOM } from '../utils/constants.js'
+import { districts } from '../stores/districts'
+import { currentAdcode } from '../stores/filters'
+import { hospitals } from '../stores/hospitals'
+import type { Hospital } from '../types'
+import { MAP_CENTER, MAP_STYLE, MAP_ZOOM } from '../utils/constants'
 
-let mapElement = $state()
-let map = $state()
-let currentItem = $state(null)
-let popup = $state(null)
+let mapElement = $state<HTMLDivElement>()
+let map = $state<mapboxgl.Map>()
+let currentItem = $state<Hospital | null>(null)
+let popup = $state<mapboxgl.Popup | null>(null)
 
 onMount(() => {
+  if (!mapElement) return
   mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || ''
 
   map = new mapboxgl.Map({
@@ -32,11 +34,12 @@ onMount(() => {
   })
 
   return () => {
-    map.remove()
+    map?.remove()
   }
 })
 
 function addHospitalLayer() {
+  if (!map) return
   map.addSource('hospitals', {
     type: 'geojson',
     data: getHospitalGeoJSON(),
@@ -63,14 +66,16 @@ function addHospitalLayer() {
   })
 
   map.on('mouseenter', 'hospital-points', (e) => {
+    if (!map) return
     map.getCanvas().style.cursor = 'pointer'
-    if (e.features.length > 0) {
-      currentItem = { ...e.features[0].properties }
+    if (e.features && e.features.length > 0) {
+      currentItem = { ...(e.features[0].properties as Hospital) }
       showPopup()
     }
   })
 
   map.on('mouseleave', 'hospital-points', () => {
+    if (!map) return
     map.getCanvas().style.cursor = ''
     currentItem = null
     hidePopup()
@@ -78,6 +83,7 @@ function addHospitalLayer() {
 }
 
 function addDistrictLayer() {
+  if (!map) return
   map.addSource('districts', {
     type: 'geojson',
     data: { type: 'FeatureCollection', features: [] },
@@ -114,14 +120,14 @@ function addDistrictLayer() {
   })
 }
 
-function getHospitalGeoJSON() {
+function getHospitalGeoJSON(): GeoJSON.FeatureCollection {
   const list = $hospitals.filtered || []
   return {
     type: 'FeatureCollection',
     features: list.map((item) => ({
-      type: 'Feature',
+      type: 'Feature' as const,
       geometry: {
-        type: 'Point',
+        type: 'Point' as const,
         coordinates: [item.lng, item.lat],
       },
       properties: { ...item },
@@ -161,26 +167,29 @@ function hidePopup() {
 
 $effect(() => {
   if (map?.getSource('hospitals')) {
-    map.getSource('hospitals').setData(getHospitalGeoJSON())
+    ;(map.getSource('hospitals') as mapboxgl.GeoJSONSource).setData(
+      getHospitalGeoJSON(),
+    )
   }
 })
 
 $effect(() => {
   const district = $districts.list.find((d) => d.adcode === $currentAdcode)
-  if (map?.getSource('districts') && district) {
-    map.getSource('districts').setData({
+  const polygon = district?.polygon
+  if (map?.getSource('districts') && polygon) {
+    ;(map.getSource('districts') as mapboxgl.GeoJSONSource).setData({
       type: 'FeatureCollection',
       features: [
         {
           type: 'Feature',
-          geometry: district.polygon,
+          geometry: polygon,
           properties: {},
         },
       ],
     })
 
-    const bbox = turf.bbox(district.polygon)
-    map.fitBounds(bbox, {
+    const bbox = turf.bbox(polygon)
+    map.fitBounds(bbox as unknown as mapboxgl.LngLatBoundsLike, {
       animate: false,
       padding: { left: 350, bottom: 50, right: 0, top: 0 },
     })

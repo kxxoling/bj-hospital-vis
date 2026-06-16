@@ -1,5 +1,5 @@
-<script>
-import { districts } from '../stores/districts.js'
+<script lang="ts">
+import { districts } from '../stores/districts'
 import {
   ALL_CATEGORY,
   ALL_RANK,
@@ -7,10 +7,16 @@ import {
   currentCategory,
   currentRank,
   searchText,
-} from '../stores/filters.js'
-import { hospitals } from '../stores/hospitals.js'
+} from '../stores/filters'
+import { hospitals } from '../stores/hospitals'
+import type { Hospital } from '../types'
 
-let searchResults = $derived.by(() => {
+interface SearchResult {
+  value: string
+  text: string
+}
+
+let searchResults = $derived.by<SearchResult[]>(() => {
   const text = $searchText
   const list = $hospitals.list || []
 
@@ -24,12 +30,14 @@ let searchResults = $derived.by(() => {
     .map((item) => ({ value: String(item.code), text: item.name }))
 })
 
-function handleSearch(e) {
-  searchText.set(e.target.value)
+function handleSearch(e: Event) {
+  searchText.set((e.target as HTMLInputElement).value)
 }
 
-function handleSelect(code) {
-  const item = ($hospitals.list || []).find((h) => h.code === Number(code))
+function handleSelect(code: string) {
+  const item = ($hospitals.list || []).find(
+    (h: Hospital) => h.code === Number(code),
+  )
   if (item) {
     searchText.set(item.name)
   }

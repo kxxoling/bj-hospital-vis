@@ -1,3 +1,4 @@
+// @ts-nocheck
 const {extend} = require('umi-request')
 
 const request = extend({

@@ -1,9 +1,9 @@
 export const request = {
-  get: async (url) => {
+  get: async <T = unknown>(url: string): Promise<T> => {
     const res = await fetch(url)
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`)
     }
-    return res.json()
+    return res.json() as Promise<T>
   },
 }

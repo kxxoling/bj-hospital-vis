@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 import { onMount } from 'svelte'
 import Header from './lib/components/Header.svelte'
 import MapView from './lib/components/Map.svelte'
 import Panel from './lib/components/Panel.svelte'
-import { districts } from './lib/stores/districts.js'
-import { hospitals } from './lib/stores/hospitals.js'
+import { districts } from './lib/stores/districts'
+import { hospitals } from './lib/stores/hospitals'
 
 let _loading = $state(true)
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 const fs = require('fs')
 const cheerio = require('cheerio')
 const NextPage = require('next-page-kit')
