@@ -1,4 +1,5 @@
 <script>
+import { districts } from '../stores/districts.js'
 import {
   ALL_CATEGORY,
   ALL_RANK,
@@ -7,7 +8,6 @@ import {
   currentRank,
   searchText,
 } from '../stores/filters.js'
-import { districts } from '../stores/districts.js'
 import { hospitals } from '../stores/hospitals.js'
 
 let searchResults = $derived.by(() => {

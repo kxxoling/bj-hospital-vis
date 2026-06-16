@@ -8,5 +8,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    chunkSizeWarningLimit: 1800,
+    rolldownOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('mapbox-gl')) return 'mapbox'
+            if (id.includes('@turf')) return 'turf'
+            return 'vendor'
+          }
+        },
+      },
+    },
   },
 })

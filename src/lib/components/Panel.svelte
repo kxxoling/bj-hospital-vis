@@ -9,13 +9,13 @@ const CATEGORY_SPECIAL = '对外专科'
 const CATEGORY_CHINESE = '对外中医'
 
 let filteredList = $derived($hospitals.filtered || [])
-let _noNeedPreSelectList = $derived(
+let noNeedPreSelectList = $derived(
   filteredList.filter((item) => NO_NEED_PRE_SELECT_CODE_MAP[item.code]),
 )
-let _specialList = $derived(
+let specialList = $derived(
   filteredList.filter((item) => item.category === CATEGORY_SPECIAL),
 )
-let _chineseList = $derived(
+let chineseList = $derived(
   filteredList.filter((item) => item.category === CATEGORY_CHINESE),
 )
 </script>
