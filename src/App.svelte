@@ -17,56 +17,15 @@ onMount(async () => {
 })
 </script>
 
-<div id="app">
+<div id="app" class="relative flex h-screen w-full flex-col">
   <Header />
-  <main>
+  <main class="relative w-full flex-1">
     <MapView />
     <Panel />
   </main>
   {#if _loading}
-    <div class="loading-mask">
-      <div class="loading-spinner"></div>
+    <div class="fixed inset-0 z-[1000] flex items-center justify-center bg-white/80">
+      <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-100 border-t-primary"></div>
     </div>
   {/if}
 </div>
-
-<style>
-  #app {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-  }
-
-  main {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 60px);
-  }
-
-  .loading-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>

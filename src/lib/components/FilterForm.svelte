@@ -62,48 +62,61 @@ $effect(() => {
 })
 </script>
 
-<form class="filter-form">
-  <div class="form-item">
-    <label for="district">地区</label>
-    <select id="district" bind:value={$currentAdcode}>
+<form class="my-2.5 rounded-md border border-gray-300 bg-white p-2.5">
+  <div class="mb-2.5 last:mb-0">
+    <label for="district" class="mb-[5px] block text-sm font-medium text-gray-700">地区</label>
+    <select
+      id="district"
+      bind:value={$currentAdcode}
+      class="w-full rounded border border-gray-300 p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+    >
       {#each $districts.list as district (district.adcode)}
         <option value={district.adcode}>{district.name}</option>
       {/each}
     </select>
   </div>
 
-  <div class="form-item">
-    <label for="rank">评级</label>
-    <select id="rank" bind:value={$currentRank}>
+  <div class="mb-2.5 last:mb-0">
+    <label for="rank" class="mb-[5px] block text-sm font-medium text-gray-700">评级</label>
+    <select
+      id="rank"
+      bind:value={$currentRank}
+      class="w-full rounded border border-gray-300 p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+    >
       {#each ALL_RANK as rank}
         <option value={rank}>{rank}</option>
       {/each}
     </select>
   </div>
 
-  <div class="form-item">
-    <label for="category">分类</label>
-    <select id="category" bind:value={$currentCategory}>
+  <div class="mb-2.5 last:mb-0">
+    <label for="category" class="mb-[5px] block text-sm font-medium text-gray-700">分类</label>
+    <select
+      id="category"
+      bind:value={$currentCategory}
+      class="w-full rounded border border-gray-300 p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+    >
       {#each ALL_CATEGORY as cat}
         <option value={cat}>{cat}</option>
       {/each}
     </select>
   </div>
 
-  <div class="form-item">
-    <label for="search">名称搜索</label>
+  <div class="mb-2.5 last:mb-0">
+    <label for="search" class="mb-[5px] block text-sm font-medium text-gray-700">名称搜索</label>
     <input
       id="search"
       type="text"
       placeholder="搜索医院名称或代码"
       value={$searchText}
       oninput={handleSearch}
+      class="w-full rounded border border-gray-300 p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
     />
     {#if searchResults.length > 0}
-      <div class="search-results" role="listbox">
+      <div class="mt-[5px] max-h-[200px] overflow-y-auto rounded border border-gray-300 bg-white" role="listbox">
         {#each searchResults as result (result.value)}
           <div
-            class="search-item"
+            class="hover:bg-gray-100 cursor-pointer p-2 text-[13px]"
             role="option"
             aria-selected="false"
             tabindex="0"
@@ -117,64 +130,3 @@ $effect(() => {
     {/if}
   </div>
 </form>
-
-<style>
-  .filter-form {
-    margin: 10px 0;
-    padding: 10px;
-    background: white;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-
-  .form-item {
-    margin-bottom: 10px;
-  }
-
-  .form-item:last-child {
-    margin-bottom: 0;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-  }
-
-  select,
-  input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  select:focus,
-  input:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-  }
-
-  .search-results {
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    max-height: 200px;
-    overflow-y: auto;
-    background: white;
-  }
-
-  .search-item {
-    padding: 8px;
-    cursor: pointer;
-    font-size: 13px;
-  }
-
-  .search-item:hover {
-    background: #f0f0f0;
-  }
-</style>

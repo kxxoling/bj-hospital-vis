@@ -197,11 +197,4 @@ $effect(() => {
 })
 </script>
 
-<div bind:this={mapElement} class="map"></div>
-
-<style>
-  .map {
-    width: 100%;
-    height: 100%;
-  }
-</style>
+<div bind:this={mapElement} class="h-full w-full"></div>

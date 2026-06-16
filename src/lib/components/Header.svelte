@@ -1,20 +1,3 @@
-<header>
-  <h1>北京社保定点医院可视化</h1>
+<header class="z-[2000] flex h-[60px] items-center bg-header px-5 text-white">
+  <h1 class="text-xl font-medium">北京社保定点医院可视化</h1>
 </header>
-
-<style>
-  header {
-    height: 60px;
-    background: #1a1a2e;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    z-index: 2000;
-  }
-
-  h1 {
-    font-size: 20px;
-    font-weight: 500;
-  }
-</style>
