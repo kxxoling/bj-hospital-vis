@@ -1,8 +1,28 @@
+import type { StyleSpecification } from 'maplibre-gl'
+
 export const MAP_CENTER: [number, number] = [
   116.42610785602722, 39.91191408461194,
 ]
 export const MAP_ZOOM = 12
-export const MAP_STYLE = 'mapbox://styles/mapbox/streets-zh-v1'
+export const MAP_STYLE: StyleSpecification = {
+  version: 8,
+  sources: {
+    osm: {
+      type: 'raster',
+      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+      tileSize: 256,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  },
+  layers: [
+    {
+      id: 'osm',
+      type: 'raster',
+      source: 'osm',
+    },
+  ],
+}
 
 export const NO_NEED_PRE_SELECT: string[] = [
   '中国医学科学院北京协和医院',

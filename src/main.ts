@@ -1,4 +1,4 @@
-import 'mapbox-gl/dist/mapbox-gl.css'
+import 'maplibre-gl/dist/maplibre-gl.css'
 import './styles/global.css'
 import { mount } from 'svelte'
 import App from './App.svelte'

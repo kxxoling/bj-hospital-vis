@@ -15,7 +15,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('mapbox-gl')) return 'mapbox'
+            if (id.includes('maplibre-gl')) return 'maplibre'
             if (id.includes('@turf')) return 'turf'
             return 'vendor'
           }

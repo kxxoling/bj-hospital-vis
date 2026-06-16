@@ -26,6 +26,6 @@
   "dependencies": {
     "@turf/turf": "^7.3.0",
     "coordtransform": "^2.1.2",
-    "mapbox-gl": "^3.24.0"
+    "maplibre-gl": "^5.24.0"
   }
 }

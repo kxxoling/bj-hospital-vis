@@ -16,7 +16,7 @@
 
 - Svelte 5
 - Vite
-- Mapbox GL JS
+- MapLibre GL JS（地图，无需 token）
 - Biome (lint & format)
 - Bun
 - GitHub Pages (部署)

@@ -9,7 +9,6 @@ declare module 'coordtransform' {
 }
 
 interface ImportMetaEnv {
-  readonly VITE_MAPBOX_TOKEN?: string
   readonly BASE_URL: string
 }
 

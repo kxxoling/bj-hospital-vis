@@ -1,32 +1,30 @@
 <script lang="ts">
 import * as turf from '@turf/turf'
-import mapboxgl from 'mapbox-gl'
+import maplibregl from 'maplibre-gl'
 import { onMount } from 'svelte'
 import { districts } from '../stores/districts'
 import { currentAdcode } from '../stores/filters'
-import { filteredHospitals, hospitals } from '../stores/hospitals'
+import { filteredHospitals } from '../stores/hospitals'
 import type { Hospital } from '../types'
 import { MAP_CENTER, MAP_STYLE, MAP_ZOOM } from '../utils/constants'
 
 let mapElement = $state<HTMLDivElement>()
-let map = $state<mapboxgl.Map>()
+let map = $state<maplibregl.Map>()
 let currentItem = $state<Hospital | null>(null)
-let popup = $state<mapboxgl.Popup | null>(null)
+let popup = $state<maplibregl.Popup | null>(null)
 
 onMount(() => {
   if (!mapElement) return
-  mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || ''
 
-  map = new mapboxgl.Map({
+  map = new maplibregl.Map({
     container: mapElement,
     style: MAP_STYLE,
     center: MAP_CENTER,
     zoom: MAP_ZOOM,
-    attributionControl: false,
   })
 
-  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
-  map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right')
+  map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
+  map.addControl(new maplibregl.FullscreenControl(), 'bottom-right')
 
   map.on('load', () => {
     addHospitalLayer()
@@ -152,7 +150,7 @@ function showPopup() {
       </div>
     `
 
-  popup = new mapboxgl.Popup({ closeOnClick: false })
+  popup = new maplibregl.Popup({ closeOnClick: false })
     .setLngLat([currentItem.lng, currentItem.lat])
     .setDOMContent(content)
     .addTo(map)
@@ -167,7 +165,7 @@ function hidePopup() {
 
 $effect(() => {
   if (map?.getSource('hospitals')) {
-    ;(map.getSource('hospitals') as mapboxgl.GeoJSONSource).setData(
+    ;(map.getSource('hospitals') as maplibregl.GeoJSONSource).setData(
       getHospitalGeoJSON(),
     )
   }
@@ -177,7 +175,7 @@ $effect(() => {
   const district = $districts.list.find((d) => d.adcode === $currentAdcode)
   const polygon = district?.polygon
   if (map?.getSource('districts') && polygon) {
-    ;(map.getSource('districts') as mapboxgl.GeoJSONSource).setData({
+    ;(map.getSource('districts') as maplibregl.GeoJSONSource).setData({
       type: 'FeatureCollection',
       features: [
         {
@@ -189,7 +187,7 @@ $effect(() => {
     })
 
     const bbox = turf.bbox(polygon)
-    map.fitBounds(bbox as unknown as mapboxgl.LngLatBoundsLike, {
+    map.fitBounds(bbox as unknown as maplibregl.LngLatBoundsLike, {
       animate: false,
       padding: { left: 350, bottom: 50, right: 0, top: 0 },
     })
